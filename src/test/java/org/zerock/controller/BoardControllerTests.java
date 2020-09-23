@@ -43,4 +43,47 @@ public class BoardControllerTests {
 				);
 	}
 	
+	//@Test
+	public void testRegister() throws Exception {
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
+				.param("title", "테스트 새 글 제목")
+				.param("content", "테스트 새글 내용")
+				.param("writer", "작성자")
+				).andReturn().getModelAndView().getViewName();
+				
+		log.info(resultPage);
+	}
+	
+	//@Test
+	public void testGet() throws Exception {
+		log.info(mockMvc.perform(MockMvcRequestBuilders
+				.get("/board/get")
+				.param("bno", "5"))
+				.andReturn()
+				.getModelAndView().getModelMap()
+				);
+		
+	}
+	
+	//@Test
+	public void testModify() throws Exception{
+		String resultPage = mockMvc
+				.perform(MockMvcRequestBuilders.post("/board/modify")
+						.param("bno", "6")
+						.param("title", "수정의 수정")
+						.param("content", "수정의 수정 내용")
+						.param("writer", "새로운 작성자"))
+				.andReturn().getModelAndView().getViewName();
+		
+		log.info(resultPage);
+	}
+	
+	//@Test
+	public void testRemove() throws Exception {
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/remove")
+				.param("bno", "6")
+				).andReturn().getModelAndView().getViewName();
+		log.info(resultPage);
+	}
+	
 }
