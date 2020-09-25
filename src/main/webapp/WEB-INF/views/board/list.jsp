@@ -41,7 +41,8 @@
 							<c:forEach items="${list}" var="board">
 								<tr>
 									<td><c:out value="${board.bno}" /></td>
-									<td><c:out value="${board.title}" /></td>
+									<td><a href="/board/get?bno=<c:out value="${board.bno }" />">
+									<c:out value="${board.title}" /></a></td>
 									<td><c:out value="${board.writer}" /></td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd"
 											value="${board.regdate }" /></td>
@@ -69,8 +70,8 @@
 			</div>
 			<div class="modal-body">처리가 완료되었습니다.</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
 				<button type="button" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-light" data-dismiss="modal">확인</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -87,8 +88,10 @@ $(document).ready(function(){
 	
 	checkModal(result);
 	
+	history.replaceState({}, null, null);
+	
 	function checkModal(result) {
-		if(result ===''){
+		if(result ==='' || history.state){
 			return;
 		}
 		if(parseInt(result) > 0) {
